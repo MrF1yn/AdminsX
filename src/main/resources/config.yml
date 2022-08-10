@@ -1,0 +1,15 @@
+staff_command:
+  on:
+    admin:
+      - "lp user..."
+      - "..."
+    helper:
+      - "lp user..."
+      - "..."
+  off:
+    admin:
+      - "lp user..."
+      - "..."
+    helper:
+      - "lp user..."
+      - "..."
