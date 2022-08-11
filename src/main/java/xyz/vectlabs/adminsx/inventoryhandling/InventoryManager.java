@@ -1,6 +1,7 @@
-package xyz.vectlabs.adminsx;
+package xyz.vectlabs.adminsx.inventoryhandling;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -17,7 +18,6 @@ public class InventoryManager {
 
 
     public  void saveInventory(Player player) {
-
         armourContents.put(player.getName(), player.getInventory().getArmorContents());
         inventoryContents.put(player.getName(), player.getInventory().getContents());
         locations.put(player.getName(), player.getLocation());

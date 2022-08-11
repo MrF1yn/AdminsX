@@ -2,7 +2,10 @@ package xyz.vectlabs.adminsx.databases;
 
 
 import com.google.gson.Gson;
+import org.bukkit.inventory.ItemStack;
 import xyz.vectlabs.adminsx.AdminsX;
+import xyz.vectlabs.adminsx.StaffVault;
+import xyz.vectlabs.adminsx.inventoryhandling.RawInv;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,11 +66,171 @@ public class SQLite implements IDatabase {
             try (Statement statement = connection.createStatement()) {
                 statement.executeUpdate(sql);
             }
+            sql = "CREATE TABLE IF NOT EXISTS staff_vaults (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+                    "NAME VARCHAR(200), INVENTORY BLOB);";
+            try (Statement statement = connection.createStatement()) {
+                statement.executeUpdate(sql);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public boolean isPlayerExists(UUID uuid) {
+        String sql = "SELECT * FROM player_info WHERE UUID=?;";
+        try  {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, uuid.toString());
+                ResultSet result = statement.executeQuery();
+                if (result.next()) {
+                    return true;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    @Override
+    public boolean isVaultExists(String name) {
+        String sql = "SELECT * FROM staff_vaults WHERE NAME=?;";
+        try {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, name);
+                ResultSet result = statement.executeQuery();
+                if (result.next()) {
+                    return true;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    @Override
+    public void createVault(String name, byte[] rawInv) {
+        String sql = "INSERT INTO staff_vaults (NAME, INVENTORY) VALUES (?, ?);";
+        try {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, name);
+                statement.setBytes(2, rawInv);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void updateVault(String name, byte[] rawInv) {
+        String sql = "UPDATE staff_vaults SET INVENTORY=? WHERE NAME=?;";
+        try  {
+            try(PreparedStatement statement = connection.prepareStatement(sql)){
+                statement.setBytes(1, rawInv);
+                statement.setString(2, name);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public StaffVault getVault(String name) {
+        String sql = "SELECT * FROM staff_vaults WHERE NAME=?;";
+        try  {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, name);
+                ResultSet result = statement.executeQuery();
+                if (result.next()) {
+                    RawInv inv = RawInv.deserialize(result.getBytes("INVENTORY"));
+                    return new StaffVault(name, inv.getInvItems());
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void createPlayer(UUID uuid, String name, boolean status, byte[] rawInv) {
+        String sql = "INSERT INTO player_info (UUID, NAME, STATUS, INVENTORY) VALUES (?, ?, ?, ?);";
+        try  {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, uuid.toString());
+                statement.setString(2, name);
+                statement.setBoolean(3, status);
+                statement.setBytes(4, rawInv);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void updatePlayer(UUID uuid, boolean status) {
+        String sql = "UPDATE player_info SET STATUS=? WHERE UUID=?;";
+        try  {
+            try(PreparedStatement statement = connection.prepareStatement(sql)){
+                statement.setBoolean(1, status);
+                statement.setString(2, uuid.toString());
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void updatePlayer(UUID uuid, byte[] rawInv) {
+        String sql = "UPDATE player_info SET INVENTORY=? WHERE UUID=?;";
+        try {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setBytes(1, rawInv);
+                statement.setString(2, uuid.toString());
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void updatePlayer(UUID uuid, byte[] rawInv, boolean status) {
+        String sql = "UPDATE player_info SET INVENTORY=?,STATUS=? WHERE UUID=?;";
+        try {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setBytes(1, rawInv);
+                statement.setBoolean(2, status);
+                statement.setString(3, uuid.toString());
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public ResultSet getPlayerInfo(UUID uuid) {
+        String sql = "SELECT * FROM player_info WHERE UUID=?;";
+        try  {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, uuid.toString());
+                ResultSet result = statement.executeQuery();
+                if (result.next()) {
+                    return result;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
