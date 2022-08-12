@@ -66,7 +66,7 @@ public class SQLite implements IDatabase {
             try (Statement statement = connection.createStatement()) {
                 statement.executeUpdate(sql);
             }
-            sql = "CREATE TABLE IF NOT EXISTS staff_vaults (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+            sql = "CREATE TABLE IF NOT EXISTS staff_vaults (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "NAME VARCHAR(200), INVENTORY BLOB);";
             try (Statement statement = connection.createStatement()) {
                 statement.executeUpdate(sql);

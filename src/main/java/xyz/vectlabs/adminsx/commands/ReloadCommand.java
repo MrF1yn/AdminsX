@@ -33,7 +33,7 @@ public class ReloadCommand implements SubCommand {
 
     @Override
     public String getName() {
-        return "vault";
+        return "reload";
     }
 
     @Override

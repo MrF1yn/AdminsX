@@ -19,7 +19,7 @@ public class VaultCommand implements SubCommand {
         vaultNames = new ArrayList<>();
         ResultSet vaults = AdminsX.plugin.getDb().getVaultNames();
         try {
-            if (vaultNames != null) {
+            if (vaults != null) {
                 do {
                     vaultNames.add(vaults.getString("NAME"));
                 } while (vaults.next());
