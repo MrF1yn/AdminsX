@@ -18,7 +18,9 @@ public interface IDatabase {
     public boolean isVaultExists(String name);
     public void createVault(String name, byte[] rawInv);
     public void updateVault(String name, byte[] rawInv);
+    public void deleteVault(String name);
     public StaffVault getVault(String name);
+    public ResultSet getVaultNames();
     public boolean isPlayerExists(UUID uuid);
     public void createPlayer(UUID uuid, String name, boolean status, byte[] rawInv);
     public void updatePlayer(UUID uuid, boolean status);

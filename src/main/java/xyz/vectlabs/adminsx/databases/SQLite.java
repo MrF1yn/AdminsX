@@ -139,6 +139,18 @@ public class SQLite implements IDatabase {
         }
     }
     @Override
+    public void deleteVault(String name) {
+    String sql = "DELETE FROM staff_vaults WHERE NAME=?;";
+        try {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, name);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
     public StaffVault getVault(String name) {
         String sql = "SELECT * FROM staff_vaults WHERE NAME=?;";
         try  {
@@ -152,6 +164,22 @@ public class SQLite implements IDatabase {
                 }
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    @Override
+    public ResultSet getVaultNames() {
+        String sql = "SELECT NAME FROM staff_vaults;";
+        try {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                ResultSet result = statement.executeQuery();
+                if (result.next()) {
+                    return result;
+
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

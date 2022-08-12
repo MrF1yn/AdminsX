@@ -1,6 +1,7 @@
 package xyz.vectlabs.adminsx;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -35,6 +36,9 @@ public class StaffVault {
     }
 
     public void save(){
+        for(HumanEntity ent : inventory.getViewers()){
+            ent.closeInventory();
+        }
         RawInv inv = new RawInv(InventoryType.CHEST);
         inv.setInvItems(inventory.getContents());
         try {
@@ -64,6 +68,18 @@ public class StaffVault {
             e.printStackTrace();
         }
         return vault;
+    }
+
+    public static void deleteVault(String name) {
+        if (LOADED_VAULTS.containsKey(name)) {
+            for(HumanEntity ent : LOADED_VAULTS.get(name).getInventory().getViewers()){
+                ent.closeInventory();
+            }
+            LOADED_VAULTS.remove(name);
+        }
+        if (AdminsX.plugin.getDb().isVaultExists(name)) {
+            AdminsX.plugin.getDb().deleteVault(name);
+        }
     }
 
 

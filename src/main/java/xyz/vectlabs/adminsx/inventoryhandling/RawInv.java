@@ -1,6 +1,7 @@
 package xyz.vectlabs.adminsx.inventoryhandling;
 
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +17,8 @@ public class RawInv implements Serializable {
     private InventoryType invType;
     private ItemStack[] invItems;
     private ItemStack[] armorContents;
+    private GameMode gameMode;
+    private Location location;
     private int xpLevel;
 
     public RawInv(InventoryType invType){
@@ -52,6 +55,22 @@ public class RawInv implements Serializable {
 
     public InventoryType getInvType() {
         return invType;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
+    public void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public byte[] serialize() throws IOException {
