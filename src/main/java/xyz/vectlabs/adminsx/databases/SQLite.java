@@ -47,7 +47,7 @@ public class SQLite implements IDatabase {
         this.url = "jdbc:sqlite:" + dataFolder;
         try {
             Class.forName("org.sqlite.JDBC");
-            DriverManager.getConnection(url);
+            this.connection = DriverManager.getConnection(url);
         } catch (SQLException | ClassNotFoundException e) {
             if (e instanceof ClassNotFoundException) {
                 AdminsX.plugin.getLogger().severe("Could Not Found SQLite Driver on your system!");

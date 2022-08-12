@@ -26,6 +26,7 @@ public final class AdminsX extends JavaPlugin {
         db = new SQLite();
         db.connect();
         db.init();
+        getServer().getPluginManager().registerEvents(new Listeners(), this);
         AdminsXCommand command = new AdminsXCommand(
                 new StaffCommand(),
                 new VaultCommand(),

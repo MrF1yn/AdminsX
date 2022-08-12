@@ -5,6 +5,7 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import xyz.vectlabs.adminsx.inventoryhandling.RawInv;
 
@@ -20,7 +21,7 @@ public class StaffVault {
 
     public StaffVault(String name, ItemStack[] itemStacks){
         this.name = name;
-        this.inventory = Bukkit.createInventory(null, 54, name);
+        this.inventory = Bukkit.createInventory(new StaffVault.StaffVaultHolder(this), 54, name);
         if(itemStacks!=null&&itemStacks.length<=54){
             inventory.setContents(itemStacks);
         }
@@ -33,6 +34,10 @@ public class StaffVault {
 
     public Inventory getInventory(){
         return this.inventory;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void save(){
@@ -82,5 +87,23 @@ public class StaffVault {
         }
     }
 
+    public static class StaffVaultHolder implements InventoryHolder{
+        StaffVault vault;
+        public StaffVaultHolder(StaffVault vault){
+            this.vault = vault;
+        }
 
+        public String getName(){
+            return vault.getName();
+        }
+
+        @Override
+        public Inventory getInventory() {
+            return vault.getInventory();
+        }
+
+        public StaffVault getVault() {
+            return vault;
+        }
+    }
 }
