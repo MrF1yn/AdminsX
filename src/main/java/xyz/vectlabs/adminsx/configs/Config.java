@@ -1,9 +1,10 @@
 package xyz.vectlabs.adminsx.configs;
 
 
-import org.bukkit.Bukkit;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.simpleyaml.configuration.file.YamlFile;
 import xyz.vectlabs.adminsx.AdminsX;
 
 import java.io.File;
@@ -11,43 +12,45 @@ import java.io.File;
 public class Config {
 
 
-    private File languageFile;
-    private FileConfiguration languageConfig;
+    private YamlFile languageConfig;
+    private YamlFile mainConfig;
 
-    public Config(File languageFile){
-        this.languageFile = languageFile;
+    public Config(){
     }
 
     public void init(){
         AdminsX.plugin.saveResource("config.yml",false);
+        mainConfig = new YamlFile("plugins/AdminsX/config.yml");
+        languageConfig = new YamlFile("plugins/AdminsX/lang.yml");
         try {
-            if (!languageFile.exists()) {
-                languageFile.createNewFile();
-                System.out.println("New file has been created: " + languageFile.getPath() + "\n");
-                languageConfig =YamlConfiguration.loadConfiguration(languageFile);
+            mainConfig.load();
+            if (!languageConfig.exists()) {
+                languageConfig.createNewFile(true);
+                System.out.println("New file has been created: " + languageConfig.getFilePath() + "\n");
+                languageConfig.load();
 
                 for(ConfigPath c : ConfigPath.values()){
                     languageConfig.addDefault(c.toString(), c.getValue());
                 }
 
-                languageConfig.save(languageFile);
+                languageConfig.save();
 
             } else {
-                System.out.println(languageFile.getPath() + " already exists, loading configurations...\n");
+                System.out.println(languageConfig.getFilePath() + " already exists, loading configurations...\n");
             }
-            YamlConfiguration.loadConfiguration(languageFile); // Loads the entire file
+            languageConfig.load(); // Loads the entire file
             // If your file has comments inside you have to load it with yamlFile.loadWithComments()
         } catch (final Exception e) {
             e.printStackTrace();
         }
     }
 
-    public FileConfiguration getLanguageConfig() {
+    public YamlFile getLanguageConfig() {
         return languageConfig;
     }
 
-    public FileConfiguration getMainConfig() {
-        return AdminsX.plugin.getConfig();
+    public YamlFile getMainConfig() {
+        return this.mainConfig;
     }
 
 }

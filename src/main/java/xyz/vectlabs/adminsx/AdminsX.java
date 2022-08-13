@@ -20,7 +20,7 @@ public final class AdminsX extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-        config = new Config(new File("plugins/lang.yml"));
+        config = new Config();
         config.init();
         invManager = new InventoryManager();
         db = new SQLite();
@@ -34,6 +34,10 @@ public final class AdminsX extends JavaPlugin {
         );
         getCommand("ax").setExecutor(command);
         getCommand("ax").setTabCompleter(command);
+//        System.out.println("CONFIG");
+//        for (String s : config.getMainConfig().getConfigurationSection("staff-command.true").getKeys(false)) {
+//            System.out.println(s);
+//        }
     }
 
     @Override

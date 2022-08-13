@@ -170,20 +170,20 @@ public class SQLite implements IDatabase {
         return null;
     }
     @Override
-    public ResultSet getVaultNames() {
+    public List<String> getVaultNames() {
+        List<String> names = new ArrayList<>();
         String sql = "SELECT NAME FROM staff_vaults;";
         try {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet result = statement.executeQuery();
-                if (result.next()) {
-                    return result;
-
+                while (result.next()){
+                    names.add(result.getString("NAME"));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return names;
     }
 
     @Override
@@ -244,14 +244,15 @@ public class SQLite implements IDatabase {
         }
     }
     @Override
-    public ResultSet getPlayerInfo(UUID uuid) {
+    public PlayerInfo getPlayerInfo(UUID uuid) {
         String sql = "SELECT * FROM player_info WHERE UUID=?;";
         try  {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, uuid.toString());
                 ResultSet result = statement.executeQuery();
                 if (result.next()) {
-                    return result;
+                    return new PlayerInfo(uuid.toString(), result.getString("NAME"), result.getBoolean("STATUS"),
+                            result.getBytes("INVENTORY"));
                 }
             }
 

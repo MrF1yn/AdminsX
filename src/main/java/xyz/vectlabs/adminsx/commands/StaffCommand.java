@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import xyz.vectlabs.adminsx.AdminsX;
 import xyz.vectlabs.adminsx.commands.handler.SubCommand;
+import xyz.vectlabs.adminsx.databases.PlayerInfo;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -26,15 +27,21 @@ public class StaffCommand implements SubCommand {
         Bukkit.getScheduler().runTaskAsynchronously(AdminsX.plugin, () -> {
             try {
                 boolean status;
-                ResultSet playerInfo = AdminsX.plugin.getDb().getPlayerInfo(p.getUniqueId());
+                PlayerInfo playerInfo = AdminsX.plugin.getDb().getPlayerInfo(p.getUniqueId());
                 if (playerInfo == null) {
                     status = false;
                 } else {
-                    status = playerInfo.getBoolean("STATUS");
+                    status = playerInfo.status;
                 }
                 Bukkit.getScheduler().runTask(AdminsX.plugin, () -> {
                     String playerGroup = null;
-                    for (String s : AdminsX.plugin.getConfigs().getMainConfig().getConfigurationSection("staff_command." + (!status ? "on" : "off")).getKeys(false)) {
+                    for (String s : AdminsX.plugin.getConfigs().getMainConfig().getConfigurationSection("staff-command").getKeys(false)) {
+                       System.out.println(s);
+                    }
+                    for (String command : AdminsX.plugin.getConfigs().getMainConfig().getStringList("staff-command.on.admin")) {
+                        System.out.println(command);
+                    }
+                    for (String s : AdminsX.plugin.getConfigs().getMainConfig().getConfigurationSection("staff-command." + (!status ? "true" : "false")).getKeys(false)) {
                         if (p.hasPermission("adminsx.group." + s)) {
                             playerGroup = s;
                             break;
@@ -42,6 +49,7 @@ public class StaffCommand implements SubCommand {
                     }
                     if (playerGroup == null) {
                         //TODO: NO GROUPS FOUND
+                         p.sendMessage("No groups were found.");
                         return;
                     }
                     if (!status) {
@@ -52,7 +60,7 @@ public class StaffCommand implements SubCommand {
                         AdminsX.plugin.getInvManager().restoreInventory(p);
                         p.sendMessage("Staff mode turned off.");
                     }
-                    for (String command : AdminsX.plugin.getConfigs().getMainConfig().getStringList("staff_command." + (!status ? "on" : "off") + "." + playerGroup)) {
+                    for (String command : AdminsX.plugin.getConfigs().getMainConfig().getStringList("staff-command." + (!status ? "true" : "false") + "." + playerGroup)) {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
                     }
                 });

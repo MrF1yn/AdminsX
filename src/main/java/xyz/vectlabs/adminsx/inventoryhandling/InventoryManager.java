@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import xyz.vectlabs.adminsx.AdminsX;
+import xyz.vectlabs.adminsx.databases.PlayerInfo;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -57,11 +58,11 @@ public class InventoryManager {
 
         Bukkit.getScheduler().runTaskAsynchronously(AdminsX.plugin, () -> {
             try {
-                ResultSet playerInfo = AdminsX.plugin.getDb().getPlayerInfo(player.getUniqueId());
+                PlayerInfo playerInfo = AdminsX.plugin.getDb().getPlayerInfo(player.getUniqueId());
                 if (playerInfo == null)return;
-                boolean status = playerInfo.getBoolean("STATUS");
+                boolean status = playerInfo.status;
                 AdminsX.plugin.getDb().updatePlayer(player.getUniqueId(), false);
-                RawInv inv = RawInv.deserialize(playerInfo.getBytes("INVENTORY"));
+                RawInv inv = RawInv.deserialize(playerInfo.inventory);
                 Bukkit.getScheduler().runTask(AdminsX.plugin, () -> {
                     player.getInventory().clear();
                     player.teleport(inv.getLocation());

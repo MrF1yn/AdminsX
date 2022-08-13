@@ -4,6 +4,7 @@ H:\AdminsX\src\main\java\xyz\vectlabs\adminsx\configs\ConfigPath.java
 H:\AdminsX\src\main\java\xyz\vectlabs\adminsx\databases\SQLite.java
 H:\AdminsX\src\main\java\xyz\vectlabs\adminsx\AdminsX.java
 H:\AdminsX\src\main\java\xyz\vectlabs\adminsx\commands\handler\AdminsXCommand.java
+H:\AdminsX\src\main\java\xyz\vectlabs\adminsx\databases\PlayerInfo.java
 H:\AdminsX\src\main\java\xyz\vectlabs\adminsx\Listeners.java
 H:\AdminsX\src\main\java\xyz\vectlabs\adminsx\inventoryhandling\RawInv.java
 H:\AdminsX\src\main\java\xyz\vectlabs\adminsx\databases\IDatabase.java

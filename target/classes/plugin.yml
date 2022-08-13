@@ -4,14 +4,12 @@ main: xyz.vectlabs.adminsx.AdminsX
 api-version: 1.13
 authors: [ MrFlyn ]
 description: All in one Admin utilities plugin
-
 commands:
   ax:
     description: "main command."
     usage: "/<command>"
-
 permissions:
   adminsx.command:
-    default: not op
+    default: op
   adminsx.group:
-    default: not op
+    default: op

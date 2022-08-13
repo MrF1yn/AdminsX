@@ -13,8 +13,7 @@
 
     <description>All in one Admin utilities plugin</description>
     <properties>
-        <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>8</java.version>
     </properties>
 
     <build>
@@ -70,6 +69,11 @@
             <artifactId>spigot-api</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml.simpleyaml</groupId>
+            <artifactId>simple-yaml</artifactId>
+            <version>1.7.3</version>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>net.kyori</groupId>-->

@@ -17,16 +17,7 @@ public class VaultCommand implements SubCommand {
     private List<String> vaultNames;
     public VaultCommand(){
         vaultNames = new ArrayList<>();
-        ResultSet vaults = AdminsX.plugin.getDb().getVaultNames();
-        try {
-            if (vaults != null) {
-                do {
-                    vaultNames.add(vaults.getString("NAME"));
-                } while (vaults.next());
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        vaultNames = AdminsX.plugin.getDb().getVaultNames();
     }
 
     @Override
@@ -37,6 +28,7 @@ public class VaultCommand implements SubCommand {
         Player p = (Player) sender;
         if(args.length<1){
             //TODO: add invalid msg
+            p.sendMessage("Mention a name.");
             return true;
         }
         Bukkit.getScheduler().runTaskAsynchronously(AdminsX.plugin, ()->{

@@ -1,12 +1,12 @@
-staff_command:
-  on:
+staff-command:
+  true:
     admin:
       - "lp user..."
       - "..."
     helper:
       - "lp user..."
       - "..."
-  off:
+  false:
     admin:
       - "lp user..."
       - "..."
