@@ -52,12 +52,10 @@ public class InventoryManager {
                 boolean status = playerInfo.status;
                 AdminsX.plugin.getDb().updatePlayer(player.getUniqueId(), false);
                 RawInv inv = RawInv.deserialize(playerInfo.inventory);
-                StaffVault vault = StaffVault.getStaffVaultOrCreate("d_"+player.getName());
+
                 Bukkit.getScheduler().runTask(AdminsX.plugin, () -> {
-                    if(vault.getInventory().firstEmpty()==-1){
-                        vault.getInventory().clear();
-                    }
-                    vault.getInventory().addItem(player.getInventory().getContents());
+                    StaffVault vault = StaffVault.getStaffVaultOrCreate("d_"+player.getName());
+                    vault.getInventory().setContents(player.getInventory().getContents());
                     vault.save();
                     player.getInventory().clear();
                     player.teleport(inv.getLocation());
