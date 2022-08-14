@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import xyz.vectlabs.adminsx.AdminsX;
+import xyz.vectlabs.adminsx.Utils;
 import xyz.vectlabs.adminsx.commands.handler.SubCommand;
 import xyz.vectlabs.adminsx.databases.PlayerInfo;
 
@@ -61,7 +62,7 @@ public class StaffCommand implements SubCommand {
                         p.sendMessage("Staff mode turned off.");
                     }
                     for (String command : AdminsX.plugin.getConfigs().getMainConfig().getStringList("staff-command." + (!status ? "true" : "false") + "." + playerGroup)) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+                        Utils.parseAndExecCommand(p, command);
                     }
                 });
             }catch (Exception e){

@@ -75,6 +75,13 @@
             <artifactId>simple-yaml</artifactId>
             <version>1.7.3</version>
         </dependency>
+        <dependency>
+            <groupId>PlaceholderAPI-2.10.9</groupId>
+            <artifactId>PlaceholderAPI-2.10.9</artifactId>
+            <scope>system</scope>
+            <version>1.0</version>
+            <systemPath>H:\projectApisSpigot\PlaceholderAPI-2.10.9.jar</systemPath>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>net.kyori</groupId>-->
 <!--            <artifactId>adventure-text-serializer-legacy</artifactId>-->

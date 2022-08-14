@@ -3,6 +3,8 @@ version: '${project.version}'
 main: xyz.vectlabs.adminsx.AdminsX
 api-version: 1.13
 authors: [ MrFlyn ]
+depend:
+  - PlaceholderAPI
 description: All in one Admin utilities plugin
 commands:
   ax:

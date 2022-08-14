@@ -1,15 +1,15 @@
 staff-command:
   true:
     admin:
-      - "lp user..."
-      - "..."
+      - "@c say %player_name% turned on staff mode: admin"
+      - "@p hub"
     helper:
-      - "lp user..."
-      - "..."
+      - "@c say %player_name% turned on staff mode: helper"
+      - "@p hub"
   false:
     admin:
-      - "lp user..."
-      - "..."
+      - "@c say %player_name% turned off staff mode: admin"
+      - "@p hub"
     helper:
-      - "lp user..."
-      - "..."
+      - "@c say %player_name% turned off staff mode: helper"
+      - "@p hub"

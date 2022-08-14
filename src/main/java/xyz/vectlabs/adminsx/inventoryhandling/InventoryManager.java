@@ -15,11 +15,6 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 
 public class InventoryManager {
-    private  HashMap<String, ItemStack[]> armourContents =  new HashMap<>();
-    private  HashMap<String, ItemStack[]> inventoryContents =  new HashMap<>();
-    private  HashMap<String, Location> locations = new HashMap<>();
-    private  HashMap<String, Integer> xplevel = new HashMap<>();
-    private  HashMap<String, GameMode> gamemode = new HashMap<>();
 
 
     public void saveInventory(Player player) {
@@ -44,18 +39,10 @@ public class InventoryManager {
                 player.setLevel(0);
             });
         });
-//        armourContents.put(player.getName(), player.getInventory().getArmorContents());
-//        inventoryContents.put(player.getName(), player.getInventory().getContents());
-//        locations.put(player.getName(), player.getLocation());
-//        xplevel.put(player.getName(), player.getLevel());
-//        gamemode.put(player.getName(), player.getGameMode());
-
-
     }
 
 
     public void restoreInventory(Player player) {
-
         Bukkit.getScheduler().runTaskAsynchronously(AdminsX.plugin, () -> {
             try {
                 PlayerInfo playerInfo = AdminsX.plugin.getDb().getPlayerInfo(player.getUniqueId());
@@ -76,12 +63,6 @@ public class InventoryManager {
             }
         });
 
-
-//        xplevel.remove(player.getName());
-//        locations.remove(player.getName());
-//        armourContents.remove(player.getName());
-//        inventoryContents.remove(player.getName());
-//        gamemode.remove(player.getName());
 
     }
 
