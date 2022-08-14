@@ -58,6 +58,7 @@ public class InventoryManager {
                         vault.getInventory().clear();
                     }
                     vault.getInventory().addItem(player.getInventory().getContents());
+                    vault.save();
                     player.getInventory().clear();
                     player.teleport(inv.getLocation());
                     player.getInventory().setContents(inv.getInvItems());
