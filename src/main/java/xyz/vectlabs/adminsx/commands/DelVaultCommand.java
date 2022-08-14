@@ -8,14 +8,13 @@ import xyz.vectlabs.adminsx.AdminsX;
 import xyz.vectlabs.adminsx.StaffVault;
 import xyz.vectlabs.adminsx.commands.handler.AdminsXCommand;
 import xyz.vectlabs.adminsx.commands.handler.SubCommand;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class VaultCommand implements SubCommand {
-    public static List<String> vaultNames;
-    public VaultCommand(){
-        vaultNames = new ArrayList<>();
-        vaultNames = AdminsX.plugin.getDb().getVaultNames();
+public class DelVaultCommand implements SubCommand {
+    public DelVaultCommand(){
+
     }
 
     @Override
@@ -31,9 +30,9 @@ public class VaultCommand implements SubCommand {
         }
         Bukkit.getScheduler().runTaskAsynchronously(AdminsX.plugin, ()->{
 
-            StaffVault vault = StaffVault.getStaffVaultOrCreate(args[0]);
-            Bukkit.getScheduler().runTask(AdminsX.plugin, ()->{
-                vault.open(p);
+            StaffVault.deleteVault(args[0]);
+            Bukkit.getScheduler().runTask(AdminsX.plugin, () -> {
+                p.sendMessage("Successfully deleted vault.");
             });
 
         });
@@ -43,14 +42,14 @@ public class VaultCommand implements SubCommand {
     @Override
     public List<String> suggestTabCompletes(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 1) {
-            return AdminsXCommand.sortedResults(args[0], new ArrayList<>(vaultNames));
+            return AdminsXCommand.sortedResults(args[0], new ArrayList<>(VaultCommand.vaultNames));
         }
         return null;
     }
 
     @Override
     public String getName() {
-        return "vault";
+        return "delVault";
     }
 
     @Override
@@ -60,7 +59,7 @@ public class VaultCommand implements SubCommand {
 
     @Override
     public String getPermission() {
-        return "adminsx.command.vault";
+        return "adminsx.command.delVault";
     }
 
 

@@ -8,6 +8,7 @@ xyz\vectlabs\adminsx\commands\ReloadCommand.class
 xyz\vectlabs\adminsx\commands\handler\SubCommand.class
 xyz\vectlabs\adminsx\configs\ConfigPath.class
 xyz\vectlabs\adminsx\databases\IDatabase.class
+xyz\vectlabs\adminsx\commands\DelVaultCommand.class
 xyz\vectlabs\adminsx\commands\StaffCommand.class
 xyz\vectlabs\adminsx\databases\PlayerInfo.class
 xyz\vectlabs\adminsx\configs\Config.class

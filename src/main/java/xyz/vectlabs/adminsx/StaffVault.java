@@ -7,6 +7,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import xyz.vectlabs.adminsx.commands.VaultCommand;
 import xyz.vectlabs.adminsx.inventoryhandling.RawInv;
 
 import java.io.IOException;
@@ -72,6 +73,7 @@ public class StaffVault {
         }catch (Exception e){
             e.printStackTrace();
         }
+        if(!VaultCommand.vaultNames.contains(name))VaultCommand.vaultNames.add(name);
         return vault;
     }
 
@@ -85,6 +87,7 @@ public class StaffVault {
         if (AdminsX.plugin.getDb().isVaultExists(name)) {
             AdminsX.plugin.getDb().deleteVault(name);
         }
+        VaultCommand.vaultNames.remove(name);
     }
 
     public static class StaffVaultHolder implements InventoryHolder{

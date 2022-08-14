@@ -1,6 +1,7 @@
 package xyz.vectlabs.adminsx;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.vectlabs.adminsx.commands.DelVaultCommand;
 import xyz.vectlabs.adminsx.commands.ReloadCommand;
 import xyz.vectlabs.adminsx.commands.StaffCommand;
 import xyz.vectlabs.adminsx.commands.VaultCommand;
@@ -30,6 +31,7 @@ public final class AdminsX extends JavaPlugin {
         AdminsXCommand command = new AdminsXCommand(
                 new StaffCommand(),
                 new VaultCommand(),
+                new DelVaultCommand(),
                 new ReloadCommand()
         );
         getCommand("ax").setExecutor(command);
