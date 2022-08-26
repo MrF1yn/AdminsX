@@ -2,9 +2,12 @@ package xyz.vectlabs.adminsx.commands;
 
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import xyz.vectlabs.adminsx.AdminsX;
 import xyz.vectlabs.adminsx.Utils;
 import xyz.vectlabs.adminsx.commands.handler.SubCommand;
@@ -12,6 +15,7 @@ import xyz.vectlabs.adminsx.databases.PlayerInfo;
 
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StaffCommand implements SubCommand {
 
@@ -64,6 +68,7 @@ public class StaffCommand implements SubCommand {
                     for (String command : AdminsX.plugin.getConfigs().getMainConfig().getStringList("staff-command." + (!status ? "true" : "false") + "." + playerGroup)) {
                         Utils.parseAndExecCommand(p, command);
                     }
+                    AdminsX.plugin.getHotBarHandler().giveHotBar(p, playerGroup);
                 });
             }catch (Exception e){
                 e.printStackTrace();

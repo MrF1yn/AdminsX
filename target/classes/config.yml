@@ -13,3 +13,20 @@ staff-command:
     helper:
       - "@c say %player_name% turned off staff mode: helper"
       - "@p hub"
+staff-hotbar:
+  admin:
+    0:
+      material: "COMPASS"
+      name: "RandomTP Admin"
+      lore:
+        - "randomly tp to a person"
+      commands:
+        - "@p adminsx randomTP"
+  helper:
+    0:
+      material: "COMPASS"
+      name: "RandomTP help"
+      lore:
+        - "randomly tp to a person"
+      commands:
+        - "@p adminsx randomTP"

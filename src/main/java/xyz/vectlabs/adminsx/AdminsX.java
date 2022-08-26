@@ -18,6 +18,7 @@ public final class AdminsX extends JavaPlugin {
     private Config config;
     private InventoryManager invManager;
     private IDatabase db;
+    private HotBarHandler hotBarHandler;
     @Override
     public void onEnable() {
         plugin = this;
@@ -27,6 +28,7 @@ public final class AdminsX extends JavaPlugin {
         db = new SQLite();
         db.connect();
         db.init();
+        hotBarHandler = new HotBarHandler();
         getServer().getPluginManager().registerEvents(new Listeners(), this);
         AdminsXCommand command = new AdminsXCommand(
                 new StaffCommand(),
@@ -57,5 +59,13 @@ public final class AdminsX extends JavaPlugin {
 
     public IDatabase getDb() {
         return db;
+    }
+
+    public HotBarHandler getHotBarHandler() {
+        return hotBarHandler;
+    }
+
+    public void setHotBarHandler(HotBarHandler hotBarHandler) {
+        this.hotBarHandler = hotBarHandler;
     }
 }

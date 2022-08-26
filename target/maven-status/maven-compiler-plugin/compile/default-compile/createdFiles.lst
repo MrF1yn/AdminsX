@@ -5,8 +5,10 @@ xyz\vectlabs\adminsx\StaffVault.class
 xyz\vectlabs\adminsx\inventoryhandling\InventoryManager.class
 xyz\vectlabs\adminsx\StaffVault$StaffVaultHolder.class
 xyz\vectlabs\adminsx\commands\ReloadCommand.class
+xyz\vectlabs\adminsx\HotBarHandler.class
 xyz\vectlabs\adminsx\commands\handler\SubCommand.class
 xyz\vectlabs\adminsx\configs\ConfigPath.class
+xyz\vectlabs\adminsx\HotBarHandler$HotBar.class
 xyz\vectlabs\adminsx\databases\IDatabase.class
 xyz\vectlabs\adminsx\commands\DelVaultCommand.class
 xyz\vectlabs\adminsx\commands\StaffCommand.class

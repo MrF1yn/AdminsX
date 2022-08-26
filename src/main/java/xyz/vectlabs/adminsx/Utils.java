@@ -12,20 +12,24 @@ public class Utils {
             if(cmd.startsWith("@p ")){
                 String command = cmd.substring(3);
                 command = PlaceholderAPI.setPlaceholders(p, command);
-                command = ChatColor.translateAlternateColorCodes('&', command);
+//                command = ChatColor.translateAlternateColorCodes('&', command);
                 Bukkit.dispatchCommand(p, command);
                 return;
             }
             if (cmd.startsWith("@c ")) {
                 String command = cmd.substring(3);
                 command = PlaceholderAPI.setPlaceholders(p, command);
-                command = ChatColor.translateAlternateColorCodes('&', command);
+//                command = ChatColor.translateAlternateColorCodes('&', command);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
                 return;
             }
             String command = PlaceholderAPI.setPlaceholders(p, cmd);
-            command = ChatColor.translateAlternateColorCodes('&', command);
+//            command = ChatColor.translateAlternateColorCodes('&', command);
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+        }
+
+        public static String color(String s){
+            return ChatColor.translateAlternateColorCodes('&',s);
         }
 
 }
