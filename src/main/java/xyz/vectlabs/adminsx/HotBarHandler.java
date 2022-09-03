@@ -66,6 +66,7 @@ public class HotBarHandler {
 
     public void onClick(InventoryClickEvent e) {
         if(e.getCurrentItem()==null)return;
+        if(e.getCurrentItem().getType()==Material.AIR)return;
         NBTItem item = new NBTItem(e.getCurrentItem());
         if(!item.hasKey("adminsx"))return;
         e.setCancelled(true);
