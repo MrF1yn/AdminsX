@@ -47,10 +47,14 @@ public class HotBarHandler {
 
     public void giveHotBar(Player p, String playerGroup){
         HotBarHandler.HotBar hotBar = grpToHotBar.get(playerGroup);
+        System.out.println("Give hotbar called.");
         if (hotBar==null)return;
+        System.out.println("Give hotbar called 1");
         for(int i : hotBar.items.keySet()){
+            System.out.println(i);
             p.getInventory().setItem(i, hotBar.items.get(i));
         }
+        p.updateInventory();
     }
 
     public void onClick(PlayerInteractEvent e){
@@ -65,6 +69,7 @@ public class HotBarHandler {
     }
 
     public void onClick(InventoryClickEvent e) {
+        if (e.getClickedInventory()==null)return;
         if(e.getCurrentItem()==null)return;
         if(e.getCurrentItem().getType()==Material.AIR)return;
         NBTItem item = new NBTItem(e.getCurrentItem());

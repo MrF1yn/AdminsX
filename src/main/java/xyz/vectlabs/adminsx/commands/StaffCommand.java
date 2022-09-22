@@ -58,7 +58,7 @@ public class StaffCommand implements SubCommand {
                         return;
                     }
                     if (!status) {
-                        AdminsX.plugin.getInvManager().saveInventory(p);
+                        AdminsX.plugin.getInvManager().saveInventory(p, playerGroup);
                         p.sendMessage("Staff mode turned on.");
                     }
                     else {
@@ -68,7 +68,6 @@ public class StaffCommand implements SubCommand {
                     for (String command : AdminsX.plugin.getConfigs().getMainConfig().getStringList("staff-command." + (!status ? "true" : "false") + "." + playerGroup)) {
                         Utils.parseAndExecCommand(p, command);
                     }
-                    AdminsX.plugin.getHotBarHandler().giveHotBar(p, playerGroup);
                 });
             }catch (Exception e){
                 e.printStackTrace();

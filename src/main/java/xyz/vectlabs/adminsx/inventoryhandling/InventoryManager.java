@@ -1,9 +1,11 @@
 package xyz.vectlabs.adminsx.inventoryhandling;
 
 
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
@@ -19,7 +21,7 @@ import java.util.HashMap;
 public class InventoryManager {
 
 
-    public void saveInventory(Player player) {
+    public void saveInventory(Player player, String playerGroup) {
         RawInv inv = new RawInv(InventoryType.PLAYER);
         inv.setInvItems(player.getInventory().getContents());
         inv.setArmorContents(player.getInventory().getArmorContents());
@@ -39,6 +41,7 @@ public class InventoryManager {
             Bukkit.getScheduler().runTask(AdminsX.plugin, () -> {
                 player.getInventory().clear();
                 player.setLevel(0);
+                AdminsX.plugin.getHotBarHandler().giveHotBar(player, playerGroup);
             });
         });
     }
@@ -54,6 +57,11 @@ public class InventoryManager {
                 RawInv inv = RawInv.deserialize(playerInfo.inventory);
 
                 Bukkit.getScheduler().runTask(AdminsX.plugin, () -> {
+                    for(ItemStack itemStack : player.getInventory()){
+                        if (itemStack==null||itemStack.getType()== Material.AIR)continue;
+                        NBTItem item = new NBTItem(itemStack);
+                        if(item.hasKey("adminsx"))itemStack.setAmount(0);
+                    }
                     StaffVault vault = StaffVault.getStaffVaultOrCreate("d_"+player.getName());
                     vault.getInventory().setContents(player.getInventory().getContents());
                     vault.save();
